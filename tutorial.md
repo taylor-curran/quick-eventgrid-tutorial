@@ -10,26 +10,7 @@ This tutorial will guide you through setting up Prefect webhooks to consume even
 
 - Prefect Cloud account.
 
-### Step 1: Set Up Azure Event Grid 
- 
-1. **Enable Event Grid Integration:** 
-  - Navigate to your Azure storage account in the Azure portal.
- 
-  - Go to `Events` under `Settings`.
- 
-  - Click on `+ Event Subscription`.
- 
-  - Name your subscription (e.g., `BlobCreatedSubscription`).
- 
-  - For `Event Schema`, select `Event Grid Schema`.
- 
-  - For `Event Type`, select `Blob created`.
- 
-  - For `Endpoint type`, select `Service Bus Topic`.
-
-  - Choose your Service Bus namespace and topic.
-
-### Step 2: Set Up Prefect Webhook 
+### Step 1: Set Up Prefect Webhook 
  
 1. **Create a Webhook in Prefect Cloud:**  
   - Log in to your Prefect Cloud account.
@@ -84,18 +65,39 @@ This tutorial will guide you through setting up Prefect webhooks to consume even
 2. **Get Prefect Webhook URL:** 
   - After creating the webhook, copy the unique URL provided by Prefect Cloud.
 
-### Step 3: Connect Azure Event Grid to Prefect Webhook 
+### Step 2: Set Up Azure Event Grid 
  
-1. **Create Event Grid Subscription with Prefect Webhook:** 
-  - Go back to the Azure portal.
-
-  - Navigate to the Event Grid subscription you created.
+1. **Enable Event Grid Integration:** 
+  - Navigate to your Azure storage account in the Azure portal.
  
-  - Change the endpoint type to `Webhook`.
+  - Go to `Events` under `Settings`.
+ 
+  - Click on `+ Event Subscription`.
+ 
+  - Name your subscription (e.g., `BlobCreatedSubscription`).
+ 
+  - For `Event Schema`, select `Event Grid Schema`.
+ 
+  - For `Event Type`, select `Blob created`.
+ 
+  - For `Endpoint type`, select `Webhook`.
 
-  - Paste the Prefect webhook URL.
+  - Paste the Prefect webhook URL copied earlier.
 
   - Save the changes.
+
+### Step 3: Verify the Webhook 
+ 
+1. **Verify the Webhook:** 
+  - When you save the Event Grid subscription with the Prefect webhook URL, Azure Event Grid sends a verification request to the webhook.
+
+  - Go to your Prefect Cloud dashboard to view the event payload received.
+
+  - Look for the verification URL in the payload.
+
+  - Copy the verification URL and paste it into your browser navigation bar where you are logged into Azure.
+
+  - This will complete the verification process, allowing the webhook configuration to save properly on the Azure side.
 
 ### Step 4: Configure Prefect Automation 
  
@@ -124,3 +126,7 @@ This tutorial will guide you through setting up Prefect webhooks to consume even
   "within": 0
 }
 ```
+
+### Conclusion 
+
+This tutorial guides you through setting up Prefect webhooks and automations to consume events from Azure Event Grid, including the necessary verification step. Following these steps will help you create a reactive system that responds to file uploads in Azure Blob Storage, allowing you to automate workflows and processes seamlessly.
